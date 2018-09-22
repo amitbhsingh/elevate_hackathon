@@ -1,0 +1,26 @@
+{
+  "name": "problemo",
+  "version": "1.0.0",
+  "description": "Problem DB for hackathons and startups",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/petroff.ryan/problemo.git"
+  },
+  "keywords": [
+    "problems"
+  ],
+  "author": "Team Victory",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/petroff.ryan/problemo/issues"
+  },
+  "homepage": "https://gitlab.com/petroff.ryan/problemo#readme"
+}
