@@ -5,7 +5,7 @@ var router = express.Router();
 var path = __dirname + '/views/';
 
 const sqlite3 = require('sqlite3').verbose();
-const CircularJSON = require('circular-json');
+// const CircularJSON = require('circular-json');
 
 // open database connection
 let db = new sqlite3.Database('./db/problems.db', (err) => {
@@ -14,7 +14,12 @@ let db = new sqlite3.Database('./db/problems.db', (err) => {
   }
   console.log('Connected to the 99Problem database.');
 });
+//var rows =  db.prepare("SELECT * FROM problems").all();
+//console.log(rows);
 
+db.each("SELECT * FROM problems", function(err, row) {
+    console.log(row);
+});
 
 
 router.use(function (req,res,next) {
@@ -75,11 +80,17 @@ app.listen(port,function(){
   console.log("Live at Port 3000");
 });
 
+process.on( 'SIGINT', function() {
+  console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
+  // some other closing procedures go here
+  // close the database connection
+  db.close((err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Close the database connection.');
+  });
 
-// close the database connection
-db.close((err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Close the database connection.');
-});
+
+  process.exit( );
+})
