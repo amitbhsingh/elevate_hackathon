@@ -33,6 +33,10 @@ router.get("/contact",function(req,res){
   res.sendFile(path + "contact.html");
 });
 
+router.get("/graph",function(req,res){
+  res.sendFile(path + "graph.html");
+});
+
 app.use("/",router);
 
 app.use("*",function(req,res){

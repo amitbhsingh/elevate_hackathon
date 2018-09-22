@@ -10,6 +10,13 @@ To start the server:
 npm start
 
 --------
+
+Team TODO
+Define Schema
+populate problem db
+Get circles thing to work?!
+
+--------
 Notes:
 
 Problem database    
