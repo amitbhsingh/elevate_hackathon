@@ -46,6 +46,7 @@ router.get("/data1.json",function(req,res){
 app.route("/dataentry")
   .get(function(req,res){
   res.sendFile(path + "dataentry.html");
+  console.log("GET /dataentry");
   })
   .post(function handler(req, res) {
     var POST = {};
@@ -58,7 +59,7 @@ app.route("/dataentry")
                 POST[_data[0]] = _data[1];
             }
             console.log(POST);
-            console.log(POST.text);
+            console.log(Object.keys(POST));
         })
     }
 })

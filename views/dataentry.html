@@ -1,36 +1,46 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+  <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>Form</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <form class="form-horizontal" method="post" action="">
+    <container class="container-fluid">
+    <form method="post" action="">
       <div class="form-group">
-        <label for="text" class="control-label col-xs-4">name</label>
-        <div class="col-xs-8">
-          <div class="input-group">
-            <div class="input-group-addon">
-              <i class="fa fa-address-card"></i>
-            </div>
-            <input id="text" name="text" class="form-control" type="text">
-          </div>
+        <label for="problemname">Problem's Name</label>
+        <input id="problemname" name="problemname" aria-describedby="problemnameHelpBlock" required="required" class="form-control here" type="text">
+        <span id="problemnameHelpBlock" class="form-text text-muted">What's the name of the problem?</span>
+      </div>
+      <div class="form-group">
+        <label for="problemdescription">Problem's Description</label>
+        <textarea id="problemdescription" name="problemdescription" cols="40" rows="5" aria-describedby="problemdescriptionHelpBlock" class="form-control"></textarea>
+        <span id="problemdescriptionHelpBlock" class="form-text text-muted">Please give a description of the problem</span>
+      </div>
+      <div class="form-group">
+        <label for="problemparent">Problem's Parent</label>
+        <div>
+          <select id="problemparent" name="problemparent" aria-describedby="problemparentHelpBlock" class="custom-select">
+            <option value="rabbit">Rabbit</option>
+            <option value="duck">Duck</option>
+            <option value="fish">Fish</option>
+            <option value=""></option>
+          </select>
+          <span id="problemparentHelpBlock" class="form-text text-muted">What's the larger problem this falls under?</span>
         </div>
       </div>
       <div class="form-group">
-        <label for="text1" class="control-label col-xs-4">whatever</label>
-        <div class="col-xs-8">
-          <input id="text1" name="text1" class="form-control" type="text">
-        </div>
+        <label for="problemtags">Tags related to the Problem</label>
+        <input id="problemtags" name="problemtags" aria-describedby="problemtagsHelpBlock" class="form-control here" type="text">
+        <span id="problemtagsHelpBlock" class="form-text text-muted">Help people find this problem with search tags</span>
       </div>
-      <div class="form-group row">
-        <div class="col-xs-offset-4 col-xs-8">
-          <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-        </div>
+      <div class="form-group">
+        <button name="submit" type="submit" class="btn btn-primary">Submit Problem</button>
       </div>
     </form>
-
-
-</body></html>
+    </container>
+  </body>
+</html>
