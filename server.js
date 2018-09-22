@@ -42,12 +42,29 @@ router.get("/data1.json",function(req,res){
   console.log("data1.json hit")
 });
 
+function simpleStringify (object){
+    var simpleObject = {};
+    for (var prop in object ){
+        if (!object.hasOwnProperty(prop)){
+            continue;
+        }
+        if (typeof(object[prop]) == 'object'){
+            continue;
+        }
+        if (typeof(object[prop]) == 'function'){
+            continue;
+        }
+        simpleObject[prop] = object[prop];
+    }
+    return JSON.stringify(simpleObject); // returns cleaned up JSON
+};
+
 app.route("/dataentry")
   .get(function(req,res){
   res.sendFile(path + "dataentry.html");
   })
   .post(function (req, res) {
-    console.log("POSTED!" + req + res)
+    console.log("POSTED!" + simpleStringify(req) + simpleStringify(res))
   });
 
 app.use("/",router);
