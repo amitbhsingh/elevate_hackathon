@@ -38,9 +38,17 @@ router.get("/graph",function(req,res){
 });
 
 router.get("/data1.json",function(req,res){
-  res.sendFile(path + "data1.json");
+  res.json(path + "data1.json");
   console.log("data1.json hit")
 });
+
+app.route("/dataentry")
+  .get(function(req,res){
+  res.sendFile(path + "dataentry.html");
+  })
+  .post(function (req, res) {
+    console.log("POSTED!" + req + res)
+  });
 
 app.use("/",router);
 
