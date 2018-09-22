@@ -11,7 +11,7 @@ let db = new sqlite3.Database('./db/problems.db', (err) => {
   if (err) {
     console.error(err.message);
   }
-  console.log('Connected to the problem database.');
+  console.log('Connected to the 99Problem database.');
 });
 
 
@@ -35,6 +35,11 @@ router.get("/contact",function(req,res){
 
 router.get("/graph",function(req,res){
   res.sendFile(path + "graph.html");
+});
+
+router.get("/data.json",function(req,res){
+  res.sendFile(path + "data.json");
+  console.log("json hit")
 });
 
 app.use("/",router);
