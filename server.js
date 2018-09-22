@@ -5,6 +5,7 @@ var router = express.Router();
 var path = __dirname + '/views/';
 
 const sqlite3 = require('sqlite3').verbose();
+const CircularJSON = require('circular-json');
 
 // open database connection
 let db = new sqlite3.Database('./db/problems.db', (err) => {
@@ -42,30 +43,26 @@ router.get("/data1.json",function(req,res){
   console.log("data1.json hit")
 });
 
-function simpleStringify (object){
-    var simpleObject = {};
-    for (var prop in object ){
-        if (!object.hasOwnProperty(prop)){
-            continue;
-        }
-        if (typeof(object[prop]) == 'object'){
-            continue;
-        }
-        if (typeof(object[prop]) == 'function'){
-            continue;
-        }
-        simpleObject[prop] = object[prop];
-    }
-    return JSON.stringify(simpleObject); // returns cleaned up JSON
-};
-
 app.route("/dataentry")
   .get(function(req,res){
   res.sendFile(path + "dataentry.html");
   })
-  .post(function (req, res) {
-    console.log("POSTED!" + simpleStringify(req) + simpleStringify(res))
-  });
+  .post(function handler(req, res) {
+    var POST = {};
+    if (req.method == 'POST') {
+        req.on('data', function(data) {
+            data = data.toString();
+            data = data.split('&');
+            for (var i = 0; i < data.length; i++) {
+                var _data = data[i].split("=");
+                POST[_data[0]] = _data[1];
+            }
+            console.log(POST);
+            console.log(POST.text);
+        })
+    }
+})
+
 
 app.use("/",router);
 
