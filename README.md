@@ -4,6 +4,10 @@ Problemo (PRAH-blay-MO)
 A database of problems for teams to solve.  
 
 Created for the Elevate Hackathon 2018 at MaRS.
+--------
+
+To start the server:
+npm start
 
 --------
 Notes:
