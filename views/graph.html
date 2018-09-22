@@ -1078,13 +1078,18 @@
 <script>
 
 // d3 json has given me infinite troubles
+// browser and server show JSON is delivered unmangled
+// What is happening?
 
 console.log("ok1");
-  d3.json("data.json", function(error, root) {
+
+d3.json("data1.json", function(error, root) {
     console.log("ok2")
     if (error) throw error;
     console.log("ok3" + root)
   });
+
+console.log("ok4");
 
 </script>
 
