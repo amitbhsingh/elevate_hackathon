@@ -32,7 +32,7 @@
 <svg width="960" height="960"></svg>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
-  var dataset = {
+/*  var dataset = {
     "name": "HARDCODED",
     "children": [
       {
@@ -1072,38 +1072,33 @@
       }
     ]
   };
-  // console.log(dataset);
+  // console.log(dataset); */
 </script>
 
 <script>
 
-// d3 json has given me infinite troubles
-// browser and server show JSON is delivered unmangled
-// What is happening?
+  // d3 json has given me infinite troubles
+  // browser and server show JSON is delivered unmangled
+  // What is happening?
 
-//console.log("ok1");
-/*
-// WHY?! WHY NO WORKINGS?!
-d3.json("data1.json", function(error, data) {
-    console.log("ok2")
-    if (error) throw error;
-    console.log("ok3" + data)
-  });
+  //console.log("ok1");
+  /*
+  // WHY?! WHY NO WORKINGS?!
+  d3.json("data1.json", function(error, data) {
+      console.log("ok2")
+      if (error) throw error;
+      console.log("ok3" + data)
+    });
 
-console.log("ok4");
-*/
+  console.log("ok4");
+  */
 
-console.log("ok1");
-d3.json("data1.json").then(function(data) {
-    console.log("ok2")
-    //dataset = data;  //THIS!!!!!??!
-  });
-
-console.log("ok3");
 
 </script>
 
 <script>
+
+
 
 var svg = d3.select("svg"),
     margin = 20,
@@ -1176,6 +1171,16 @@ function dataparser(root) {
     circle.attr("r", function(d) { return d.r * k; });
   }
 };
-dataparser(dataset);
+var dataset;
+
+//console.log("ok1");
+d3.json("data1.json").then(function(data) {
+    //console.log("ok2")
+    dataset = data;
+    console.log(dataset); //works
+  }).then(function () {dataparser(dataset)});
+
+//console.log("ok3");
+
 </script>
 </html>
