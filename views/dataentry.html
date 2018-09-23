@@ -6,6 +6,7 @@
     <title>Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
   </head>
   <body>
     <container class="container-fluid">
@@ -24,10 +25,7 @@
         <label for="problemparent">Problem's Parent</label>
         <div>
           <select id="problemparent" name="problemparent" aria-describedby="problemparentHelpBlock" class="custom-select">
-            <option value="rabbit">Rabbit</option>
-            <option value="duck">Duck</option>
-            <option value="fish">Fish</option>
-            <option value=""></option>
+
           </select>
           <span id="problemparentHelpBlock" class="form-text text-muted">What's the larger problem this falls under?</span>
         </div>
@@ -43,4 +41,18 @@
     </form>
     </container>
   </body>
+  <script>
+    //console.log("ok1");
+    var possibleparents = [];
+    d3.json("parents.json").then(function(data) {
+        //console.log("ok2")
+        possibleparents = data;
+        console.log(possibleparents)
+      }).then( function(){
+  var dropdownselector = document.getElementById("problemparent").options;
+  possibleparents.forEach(option =>
+  dropdownselector.add(
+    new Option(option, option)
+  ));})
+  </script>
 </html>

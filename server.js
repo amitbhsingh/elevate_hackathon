@@ -16,15 +16,17 @@ let db = new sqlite3.Database('./db/problems.db', (err) => {
 });
 //var rows =  db.prepare("SELECT * FROM problems").all();
 //console.log(rows);
-
 var possibleparents = [];
+var populateParentArray = function () {
+possibleparents = [];
 db.each("SELECT * FROM problems", function(err, row) {
   //  console.log(row.name);
     possibleparents.push(row.name)
 }, function(err, row) {
-    console.log(possibleparents);
+  //  console.log(possibleparents); // all parents collected
 });
-
+}
+populateParentArray();
 
 router.use(function (req,res,next) {
   console.log("/" + req.method);
@@ -52,9 +54,16 @@ router.get("/data1.json",function(req,res){
   console.log("data1.json hit")
 });
 
+router.get("/parents.json",function(req,res){
+  res.json(possibleparents);
+  console.log("/parents.json hit")
+});
+
 app.route("/dataentry")
   .get(function(req,res){
     /// here is where we need to send the parent's list to the frontend
+    populateParentArray()
+    console.log(possibleparents);
   res.sendFile(path + "dataentry.html");
   console.log("GET /dataentry");
   })
