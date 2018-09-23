@@ -17,8 +17,12 @@ let db = new sqlite3.Database('./db/problems.db', (err) => {
 //var rows =  db.prepare("SELECT * FROM problems").all();
 //console.log(rows);
 
+var possibleparents = [];
 db.each("SELECT * FROM problems", function(err, row) {
-    console.log(row);
+  //  console.log(row.name);
+    possibleparents.push(row.name)
+}, function(err, row) {
+    console.log(possibleparents);
 });
 
 

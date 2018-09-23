@@ -20,6 +20,8 @@ Define Schema
 populate problem db
 Get circles thing to work?!
 
+pin node version in package.json
+
 --------
 Notes:
 
