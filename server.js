@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080;
 var router = express.Router();
 var path = __dirname + '/views/';
 
@@ -91,7 +91,7 @@ app.use("*",function(req,res){
 });
 
 app.listen(port,function(){
-  console.log("Live at Port 3000 http://localhost:3000/graph");
+  console.log("Live at Port " + port + " http://localhost:"+port+"/graph");
 });
 
 /*************
