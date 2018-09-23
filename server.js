@@ -178,10 +178,11 @@ function pushToDB(name, parent, description, scores, tags){
   sql = 'INSERT INTO problems(name, created, parent, description, scores, tags) VALUES(?, ?, ?, ?, ?, ?)';
 
   // Add Entries to DB
-  db.run(sql, entries, function(err){
+  db.run(sql, entries, function(err,){
     if(err){
       throw err;
     }
+    console.log("lastID is " + this.lastID);
   });
 
   // Update Parent to Include Child
