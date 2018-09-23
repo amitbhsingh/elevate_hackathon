@@ -78,7 +78,10 @@ app.route("/dataentry")
                 POST[_data[0]] = _data[1];
             }
             console.log(POST);
-            console.log(Object.keys(POST));
+            //pushToDB(name, parent, description, scores, tags) - New entry in DB with unique Name, parent, description, scores, and tags.
+            pushToDB(POST.problemname, POST.problemparent, POST.problemdescription, 0, POST.problemtags);
+            // console.log(Object.keys(POST)); // [ 'problemname',  'problemdescription', 'problemparent', 'problemtags', 'submit' ]
+
         })
     }
 })
