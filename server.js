@@ -5,6 +5,7 @@ var router = express.Router();
 var path = __dirname + '/views/';
 
 const sqlite3 = require('sqlite3').verbose();
+var arrayToTree = require('array-to-tree');
 // const CircularJSON = require('circular-json');
 
 // open database connection
@@ -17,16 +18,28 @@ let db = new sqlite3.Database('./db/problems.db', (err) => {
 //var rows =  db.prepare("SELECT * FROM problems").all();
 //console.log(rows);
 var possibleparents = [];
+var ALLrows = [];  // THE WHOLE DATABASE, YO!
+var treefromallrows;
 var populateParentArray = function () {
 possibleparents = [];
 db.each("SELECT * FROM problems", function(err, row) {
   //  console.log(row.name);
     possibleparents.push(row.name)
+    ALLrows.push(row)
 }, function(err, row) {
   //  console.log(possibleparents); // all parents collected
+  // console.log(ALLrows);
+
+treefromallrows = arrayToTree(ALLrows, {
+  parentProperty: 'parent',
+  childrenProperty: 'children',
+  customID: 'name'
+});
+    console.log(treefromallrows); //WOOOO!
 });
 }
 populateParentArray();
+
 
 router.use(function (req,res,next) {
   console.log("/" + req.method);
@@ -53,6 +66,24 @@ router.get("/data1.json",function(req,res){
   res.sendFile(path + "data1.json");
   console.log("data1.json hit")
 });
+
+router.get("/allrows.json",function(req,res){
+  res.json(ALLrows);
+  console.log("allrows.json hit")
+});
+
+
+///////////////////////////////////////////////////////////////
+
+router.get("/circlesdata.json",function(req,res){ // WORK HERE
+  var circlesdata = {"name": "circles data", "children": treefromallrows}
+  circlesdata.children.forEach(function(entry){entry.size = Math.random(5)+1})
+  res.json(circlesdata);
+  console.log(circlesdata)
+  console.log("circlesdata.json hit")
+});
+////////////////////////////////////////////////////////////////
+
 
 router.get("/parents.json",function(req,res){
   res.json(possibleparents);

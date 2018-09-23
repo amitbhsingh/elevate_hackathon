@@ -4,6 +4,7 @@
   "description": "Problem DB for hackathons and startups",
   "main": "server.js",
   "dependencies": {
+    "array-to-tree": "^3.3.0",
     "express": "^4.16.3",
     "sqlite3": "^4.0.2"
   },
