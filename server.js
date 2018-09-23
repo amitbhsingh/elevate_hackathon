@@ -44,7 +44,7 @@ router.get("/graph",function(req,res){
 });
 
 router.get("/data1.json",function(req,res){
-  res.json(path + "data1.json");
+  res.sendFile(path + "data1.json");
   console.log("data1.json hit")
 });
 
@@ -78,7 +78,7 @@ app.use("*",function(req,res){
 });
 
 app.listen(port,function(){
-  console.log("Live at Port 3000");
+  console.log("Live at Port 3000 http://localhost:3000/graph");
 });
 
 /*************

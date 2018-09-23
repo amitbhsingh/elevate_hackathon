@@ -33,7 +33,7 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
   var dataset = {
-    "name": "flare",
+    "name": "HARDCODED",
     "children": [
       {
         "name": "analytics",
@@ -1082,14 +1082,24 @@
 // What is happening?
 
 console.log("ok1");
-
-d3.json("data1.json", function(error, root) {
+/*
+// WHY?! WHY NO WORKINGS?!
+d3.json("data1.json", function(error, data) {
     console.log("ok2")
     if (error) throw error;
-    console.log("ok3" + root)
+    console.log("ok3" + data)
   });
 
 console.log("ok4");
+*/
+
+console.log("ok1");
+d3.json("data1.json").then(function(data) {
+    console.log("ok2")
+    //dataset = data;  //THIS!!!!!??!
+  });
+
+console.log("ok3");
 
 </script>
 
