@@ -29,6 +29,7 @@ db.each("SELECT * FROM problems", function(err, row) {
 }, function(err, row) {
   //  console.log(possibleparents); // all parents collected
   // console.log(ALLrows);
+  ALLrows.forEach(function(row){row.size=1})
 
 treefromallrows = arrayToTree(ALLrows, {
   parentProperty: 'parent',
@@ -74,10 +75,34 @@ router.get("/allrows.json",function(req,res){
 
 
 ///////////////////////////////////////////////////////////////
-
 router.get("/circlesdata.json",function(req,res){ // WORK HERE
-  var circlesdata = {"name": "circles data", "children": treefromallrows}
-  circlesdata.children.forEach(function(entry){entry.size = Math.random(5)+1})
+
+
+    var circlesdata = {"name": "circles data", "children": treefromallrows}
+
+  var count = 0;
+
+  function count_leaves(node){
+      if(node.children){
+          //go through all its children
+          for(var i = 0; i<node.children.length; i++){
+              //if the current child in the for loop has children of its own
+              //call recurse again on it to decend the whole tree
+              if (node.children[i].children){
+                  count_leaves(node.children[i]);
+                  count++
+              }
+              //if not then it is a leaf so we count it
+              else{
+                  count++;
+              }
+          }
+      }
+      console.log("count: " + count)
+    }
+    count_leaves(circlesdata)
+
+  //circlesdata.children.forEach(function(entry){entry.size = Math.random(5)+1})
   res.json(circlesdata);
   console.log(circlesdata)
   console.log("circlesdata.json hit")
