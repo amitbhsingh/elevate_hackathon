@@ -50,6 +50,7 @@ router.get("/data1.json",function(req,res){
 
 app.route("/dataentry")
   .get(function(req,res){
+    /// here is where we need to send the parent's list to the frontend
   res.sendFile(path + "dataentry.html");
   console.log("GET /dataentry");
   })
