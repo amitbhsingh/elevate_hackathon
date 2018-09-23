@@ -80,6 +80,91 @@ app.listen(port,function(){
   console.log("Live at Port 3000");
 });
 
+/*************
+  Declaring Functions
+    List of Functions:
+      fullDate() - Returns String of Current Date in Proper Format
+      addChild(name, newChild) - Finds name in DB and adds newChild to its children
+      addTag(name, newTag) - Finds name in DB and adds newTag to its tags
+      pushToDB(name, parent, description, scores, tags) - New entry in DB with unique Name, parent, description, scores, and tags.
+**************/
+
+let sql = '';
+
+// Get Current Date and Time
+function fullDate(){
+  const date = new Date();
+
+  dateString = date.toString();
+
+  return dateString;
+}
+
+
+// Add Child to Entry
+function addChild(name, newChild){
+  let currentChildren = '';
+
+  // Get Current Children
+  sql = 'SELECT children children FROM problems WHERE name = (?)';
+  db.each(sql, name, (err, row) => {
+    if(err){
+      throw err;
+    }
+    currentChildren = row.children;
+    // Update Child
+    sql = 'UPDATE problems SET children = ? WHERE name = ?';
+    db.run(sql, [currentChildren + ', ' + newChild, name], function(err){
+      if(err){
+        throw err;
+      }
+    });
+  });
+}
+
+// Add Tag to Entry
+function addTag(name, newTag){
+  let currentTags = '';
+
+  // Get Current Tags
+  sql = 'SELECT tags tags FROM problems WHERE name = (?)';
+  db.each(sql, name, (err, row) => {
+    if(err){
+      throw err;
+    }
+    currentTags = row.tags;
+
+    // Update tags
+    sql = 'UPDATE problems SET tags = ? WHERE name = ?';
+    db.run(sql, [currentTags + ', ' + newTag.toLowerCase(), name], function(err){
+      if(err){
+        throw err;
+      }
+    });
+  });
+}
+
+// Creates Database Entry with Given Inputs
+function pushToDB(name, parent, description, scores, tags){
+  // Define SQL Info
+  let created = fullDate();
+  let entries = [name, created, parent, description, scores, tags];
+  sql = 'INSERT INTO problems(name, created, parent, description, scores, tags) VALUES(?, ?, ?, ?, ?, ?)';
+
+  // Add Entries to DB
+  db.run(sql, entries, function(err){
+    if(err){
+      throw err;
+    }
+  });
+
+  // Update Parent to Include Child
+  addChild(parent, name);
+}
+
+/* END OF FUNCTIONS */
+
+
 process.on( 'SIGINT', function() {
   console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
   // some other closing procedures go here
