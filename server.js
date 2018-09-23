@@ -97,10 +97,12 @@ app.listen(port,function(){
 /*************
   Declaring Functions
     List of Functions:
+     stringToArray(initString) - Returns Array from Initial String using ", " for splitting
       fullDate() - Returns String of Current Date in Proper Format
       addChild(name, newChild) - Finds name in DB and adds newChild to its children
       addTag(name, newTag) - Finds name in DB and adds newTag to its tags
       pushToDB(name, parent, description, scores, tags) - New entry in DB with unique Name, parent, description, scores, and tags.
+      getChildren(name) - Finds name in DB and return the children as an array
 **************/
 
 let sql = '';
@@ -113,6 +115,13 @@ function fullDate(){
 
   return dateString;
 }
+
+// Split initString into Array and Return Array
+function stringToArray(initString){
+  stringArray = initString.split(", ");
+  return stringArray;
+}
+
 
 
 // Add Child to Entry
@@ -175,6 +184,23 @@ function pushToDB(name, parent, description, scores, tags){
   // Update Parent to Include Child
   addChild(parent, name);
 }
+
+/* Getters */
+function getChildren(name){
+  let childrenArray = [];
+  sql = 'SELECT children children FROM problems WHERE name = ?';
+
+  // Get Children
+  db.each(sql, name, (err, row) => {
+    if(err){
+      throw err;
+    }
+    childrenArray = stringToArray(row.children);
+    console.log(childrenArray);
+    return childrenArray;
+  });
+}
+
 
 /* END OF FUNCTIONS */
 
