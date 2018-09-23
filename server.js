@@ -79,29 +79,31 @@ router.get("/circlesdata.json",function(req,res){ // WORK HERE
 
 
     var circlesdata = {"name": "circles data", "children": treefromallrows}
+    relativeSIZE = 1000;
 
-  var count = 0;
-
-  function count_leaves(node){
-      if(node.children){
-          //go through all its children
-          for(var i = 0; i<node.children.length; i++){
-              //if the current child in the for loop has children of its own
-              //call recurse again on it to decend the whole tree
-              if (node.children[i].children){
-                  count_leaves(node.children[i]);
-                  count++
-              }
-              //if not then it is a leaf so we count it
-              else{
-                  count++;
-              }
-          }
+    var trunkTOleaves = function trunkTOleaves (root) {
+      root.size = relativeSIZE;
+      relativeSIZE = relativeSIZE * 0.83;
+      if (root.children) {
+          root.children.forEach(function(xild){
+            if (xild) {trunkTOleaves(xild)}
+          })
       }
-      console.log("count: " + count)
     }
-    count_leaves(circlesdata)
-
+    trunkTOleaves(circlesdata);
+/*
+    function cumulativeCHILDREN (parent) {
+      var childcount = 0;
+      parent.children.forEach(function(xild){
+          childcount++;
+          xild.children.forEach(function(xxild){childcount++})
+        })
+      parent.size = childcount;
+      console.log(parent.name, parent.size)
+    }
+    cumulativeCHILDREN(circlesdata);
+    circlesdata.children.forEach(function(xild){cumulativeCHILDREN(xild)})
+*/
   //circlesdata.children.forEach(function(entry){entry.size = Math.random(5)+1})
   res.json(circlesdata);
   console.log(circlesdata)
